@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 TheGaffer MCP - Soccer Tactical Chat Agent
-
 A sophisticated MCP agent that provides tactical advice and analysis for soccer.
 """
 
@@ -10,14 +9,12 @@ import logging
 import sys
 from pathlib import Path
 
-# Add the project root to the Python path
 project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 from thegaffer.core.agent import TheGafferAgent
 from thegaffer.core.config import Config
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
@@ -26,12 +23,9 @@ logger = logging.getLogger(__name__)
 
 
 async def main():
-    """Main entry point for TheGaffer MCP agent."""
     try:
-        # Load configuration
         config = Config.from_env()
 
-        # Create and run the agent
         agent = TheGafferAgent(config)
 
         logger.info("Starting TheGaffer MCP agent...")
@@ -39,7 +33,6 @@ async def main():
         logger.info(f"LLM Provider: {config.llm.provider}")
         logger.info(f"Model: {config.llm.model}")
 
-        # Run the MCP server
         await agent.run()
 
     except KeyboardInterrupt:

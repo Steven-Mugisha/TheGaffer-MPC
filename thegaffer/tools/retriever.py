@@ -148,9 +148,7 @@ class TacticalRetriever:
             },
         }
 
-    async def retrieve(
-        self, topic: str, era: Optional[str] = None, coach: Optional[str] = None
-    ) -> str:
+    async def retrieve(self, topic: str, era: Optional[str] = None, coach: Optional[str] = None) -> str:
         """Retrieve tactical knowledge based on topic, era, and coach."""
 
         # Search in knowledge base
@@ -164,25 +162,19 @@ class TacticalRetriever:
 
         return response
 
-    def _search_knowledge_base(
-        self, topic: str, era: Optional[str], coach: Optional[str]
-    ) -> Dict:
+    def _search_knowledge_base(self, topic: str, era: Optional[str], coach: Optional[str]) -> Dict:
         """Search the local knowledge base for relevant information."""
         results = {}
 
         # Search formations
         if topic.lower() in ["formation", "formations", "tactics", "tactical"]:
             for formation, data in self.tactical_knowledge_base["formations"].items():
-                if topic.lower() in formation.lower() or any(
-                    word in topic.lower() for word in formation.split("-")
-                ):
+                if topic.lower() in formation.lower() or any(word in topic.lower() for word in formation.split("-")):
                     results["formations"] = {formation: data}
 
         # Search tactical concepts
         for concept, data in self.tactical_knowledge_base["tactical_concepts"].items():
-            if concept.lower() in topic.lower() or any(
-                word in topic.lower() for word in concept.split("_")
-            ):
+            if concept.lower() in topic.lower() or any(word in topic.lower() for word in concept.split("_")):
                 results["concepts"] = {concept: data}
 
         # Search coaches
@@ -194,9 +186,7 @@ class TacticalRetriever:
 
         return results
 
-    async def _fetch_external_data(
-        self, topic: str, era: Optional[str], coach: Optional[str]
-    ) -> Dict:
+    async def _fetch_external_data(self, topic: str, era: Optional[str], coach: Optional[str]) -> Dict:
         """Fetch additional data from external sources."""
         # This is a placeholder for external API calls
         # In a real implementation, you might call:
@@ -215,9 +205,7 @@ class TacticalRetriever:
 
             # Example: Fetch historical context (placeholder)
             if era:
-                external_data["historical_context"] = (
-                    f"During the {era} era, tactical approaches focused on..."
-                )
+                external_data["historical_context"] = f"During the {era} era, tactical approaches focused on..."
 
         except Exception as e:
             logger.warning(f"Failed to fetch external data: {e}")
@@ -246,15 +234,9 @@ class TacticalRetriever:
                 response_parts.append(f"\n### {formation}")
                 response_parts.append(f"**Description:** {data['description']}")
                 response_parts.append(f"**Strengths:** {', '.join(data['strengths'])}")
-                response_parts.append(
-                    f"**Weaknesses:** {', '.join(data['weaknesses'])}"
-                )
-                response_parts.append(
-                    f"**Famous Coaches:** {', '.join(data['famous_coaches'])}"
-                )
-                response_parts.append(
-                    f"**Historical Context:** {data['historical_context']}"
-                )
+                response_parts.append(f"**Weaknesses:** {', '.join(data['weaknesses'])}")
+                response_parts.append(f"**Famous Coaches:** {', '.join(data['famous_coaches'])}")
+                response_parts.append(f"**Historical Context:** {data['historical_context']}")
 
         # Add tactical concepts
         if "concepts" in knowledge:
@@ -262,15 +244,9 @@ class TacticalRetriever:
             for concept, data in knowledge["concepts"].items():
                 response_parts.append(f"\n### {concept.replace('_', ' ').title()}")
                 response_parts.append(f"**Description:** {data['description']}")
-                response_parts.append(
-                    f"**Key Principles:** {', '.join(data['principles'])}"
-                )
-                response_parts.append(
-                    f"**Famous Examples:** {', '.join(data['famous_examples'])}"
-                )
-                response_parts.append(
-                    f"**Counter Strategies:** {', '.join(data['counter_strategies'])}"
-                )
+                response_parts.append(f"**Key Principles:** {', '.join(data['principles'])}")
+                response_parts.append(f"**Famous Examples:** {', '.join(data['famous_examples'])}")
+                response_parts.append(f"**Counter Strategies:** {', '.join(data['counter_strategies'])}")
 
         # Add coach information
         if "coaches" in knowledge:
@@ -278,12 +254,8 @@ class TacticalRetriever:
             for coach_name, data in knowledge["coaches"].items():
                 response_parts.append(f"\n### {coach_name.replace('_', ' ').title()}")
                 response_parts.append(f"**Style:** {data['style']}")
-                response_parts.append(
-                    f"**Preferred Formations:** {', '.join(data['formations'])}"
-                )
-                response_parts.append(
-                    f"**Key Principles:** {', '.join(data['key_principles'])}"
-                )
+                response_parts.append(f"**Preferred Formations:** {', '.join(data['formations'])}")
+                response_parts.append(f"**Key Principles:** {', '.join(data['key_principles'])}")
                 response_parts.append(f"**Teams Managed:** {', '.join(data['teams'])}")
 
         # Add external data
@@ -296,23 +268,15 @@ class TacticalRetriever:
         # Add era-specific information
         if era:
             response_parts.append(f"\n## {era.title()} Era Context")
-            response_parts.append(
-                f"During the {era} era, tactical approaches were characterized by..."
-            )
+            response_parts.append(f"During the {era} era, tactical approaches were characterized by...")
 
         # Add practical applications
         response_parts.append("\n## Practical Applications")
         response_parts.append("To apply this tactical knowledge:")
-        response_parts.append(
-            "1. Study the principles and adapt them to your team's strengths"
-        )
+        response_parts.append("1. Study the principles and adapt them to your team's strengths")
         response_parts.append("2. Practice the key movements and patterns in training")
-        response_parts.append(
-            "3. Analyze how successful teams implement these concepts"
-        )
-        response_parts.append(
-            "4. Gradually introduce elements into your tactical approach"
-        )
+        response_parts.append("3. Analyze how successful teams implement these concepts")
+        response_parts.append("4. Gradually introduce elements into your tactical approach")
 
         return "\n".join(response_parts)
 

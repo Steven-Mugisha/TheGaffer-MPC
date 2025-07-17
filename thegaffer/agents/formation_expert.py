@@ -79,9 +79,7 @@ class FormationExpert:
         else:
             raise ValueError(f"Unsupported LLM provider: {self.config.llm.provider}")
 
-    async def suggest_counter(
-        self, opponent_formation: str, your_strengths: str = "", match_context: str = ""
-    ) -> str:
+    async def suggest_counter(self, opponent_formation: str, your_strengths: str = "", match_context: str = "") -> str:
         """Suggest formations and tactics to counter a specific formation."""
 
         # Get formation characteristics
@@ -153,9 +151,7 @@ Be specific, practical, and include tactical diagrams in your explanation. Consi
                 return response.content[0].text
         except Exception as e:
             logger.error(f"Error in formation analysis: {e}")
-            return (
-                f"Sorry, I encountered an error while analyzing the formation: {str(e)}"
-            )
+            return f"Sorry, I encountered an error while analyzing the formation: {str(e)}"
 
     async def analyze_formation(self, formation: str, context: str = "") -> str:
         """Analyze a specific formation in detail."""
@@ -229,6 +225,4 @@ Be specific, practical, and include tactical insights. Use your expertise to pro
                 return response.content[0].text
         except Exception as e:
             logger.error(f"Error in formation analysis: {e}")
-            return (
-                f"Sorry, I encountered an error while analyzing the formation: {str(e)}"
-            )
+            return f"Sorry, I encountered an error while analyzing the formation: {str(e)}"

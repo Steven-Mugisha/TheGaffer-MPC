@@ -29,9 +29,7 @@ class TacticalAdvisor:
         else:
             raise ValueError(f"Unsupported LLM provider: {self.config.llm.provider}")
 
-    async def analyze(
-        self, query: str, formation: Optional[str] = None, context: str = ""
-    ) -> str:
+    async def analyze(self, query: str, formation: Optional[str] = None, context: str = "") -> str:
         """Analyze tactical query and provide advice."""
 
         # Build the prompt based on the query type
@@ -65,9 +63,7 @@ class TacticalAdvisor:
             logger.error(f"Error in tactical analysis: {e}")
             return f"Sorry, I encountered an error while analyzing your tactical query: {str(e)}"
 
-    def _build_high_press_prompt(
-        self, query: str, formation: Optional[str], context: str
-    ) -> str:
+    def _build_high_press_prompt(self, query: str, formation: Optional[str], context: str) -> str:
         """Build prompt for high press analysis."""
         return f"""You are TheGaffer, an expert soccer tactical advisor. Analyze this high press scenario and provide detailed tactical advice.
 
@@ -85,9 +81,7 @@ Provide a comprehensive analysis including:
 
 Be specific, practical, and include tactical diagrams in your explanation."""
 
-    def _build_counter_prompt(
-        self, query: str, formation: Optional[str], context: str
-    ) -> str:
+    def _build_counter_prompt(self, query: str, formation: Optional[str], context: str) -> str:
         """Build prompt for counter-attacking analysis."""
         return f"""You are TheGaffer, an expert soccer tactical advisor. Analyze this counter-attacking scenario and provide detailed tactical advice.
 
@@ -105,9 +99,7 @@ Provide a comprehensive analysis including:
 
 Be specific, practical, and include tactical insights."""
 
-    def _build_formation_prompt(
-        self, query: str, formation: Optional[str], context: str
-    ) -> str:
+    def _build_formation_prompt(self, query: str, formation: Optional[str], context: str) -> str:
         """Build prompt for formation analysis."""
         return f"""You are TheGaffer, an expert soccer tactical advisor. Analyze this formation scenario and provide detailed tactical advice.
 
@@ -125,9 +117,7 @@ Provide a comprehensive analysis including:
 
 Be specific, practical, and include tactical insights."""
 
-    def _build_general_prompt(
-        self, query: str, formation: Optional[str], context: str
-    ) -> str:
+    def _build_general_prompt(self, query: str, formation: Optional[str], context: str) -> str:
         """Build prompt for general tactical analysis."""
         return f"""You are TheGaffer, an expert soccer tactical advisor with decades of experience. Provide detailed tactical analysis and advice.
 

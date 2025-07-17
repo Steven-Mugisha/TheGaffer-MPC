@@ -1,7 +1,3 @@
-"""
-Configuration management for TheGaffer MCP agent.
-"""
-
 import os
 from typing import Optional
 
@@ -12,8 +8,6 @@ load_dotenv()
 
 
 class LLMConfig(BaseModel):
-    """Configuration for LLM providers."""
-
     provider: str = Field(
         default="openai", description="LLM provider (openai, anthropic)"
     )

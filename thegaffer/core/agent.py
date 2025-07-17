@@ -155,9 +155,7 @@ class TheGafferAgent:
             return ListToolsResult(tools=tools)
 
         @self.server.call_tool()
-        async def handle_call_tool(
-            name: str, arguments: Dict[str, Any]
-        ) -> CallToolResult:
+        async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
             """Handle tool calls and route to appropriate agents."""
             try:
                 if name == "analyze_tactics":
@@ -166,9 +164,7 @@ class TheGafferAgent:
                         formation=arguments.get("formation"),
                         context=arguments.get("context", ""),
                     )
-                    return CallToolResult(
-                        content=[TextContent(type="text", text=result)]
-                    )
+                    return CallToolResult(content=[TextContent(type="text", text=result)])
 
                 elif name == "counter_formation":
                     result = await self.formation_expert.suggest_counter(
@@ -176,9 +172,7 @@ class TheGafferAgent:
                         your_strengths=arguments.get("your_strengths", ""),
                         match_context=arguments.get("match_context", ""),
                     )
-                    return CallToolResult(
-                        content=[TextContent(type="text", text=result)]
-                    )
+                    return CallToolResult(content=[TextContent(type="text", text=result)])
 
                 elif name == "analyze_match":
                     result = await self.match_analyzer.analyze_match(
@@ -186,9 +180,7 @@ class TheGafferAgent:
                         teams=arguments.get("teams", ""),
                         focus_areas=arguments.get("focus_areas", ""),
                     )
-                    return CallToolResult(
-                        content=[TextContent(type="text", text=result)]
-                    )
+                    return CallToolResult(content=[TextContent(type="text", text=result)])
 
                 elif name == "get_tactical_knowledge":
                     result = await self.retriever.retrieve(
@@ -196,18 +188,14 @@ class TheGafferAgent:
                         era=arguments.get("era"),
                         coach=arguments.get("coach"),
                     )
-                    return CallToolResult(
-                        content=[TextContent(type="text", text=result)]
-                    )
+                    return CallToolResult(content=[TextContent(type="text", text=result)])
 
                 else:
                     raise ValueError(f"Unknown tool: {name}")
 
             except Exception as e:
                 logger.error(f"Error in tool call {name}: {e}")
-                return CallToolResult(
-                    content=[TextContent(type="text", text=f"Error: {str(e)}")]
-                )
+                return CallToolResult(content=[TextContent(type="text", text=f"Error: {str(e)}")])
 
     async def run(self):
         """Run the MCP server."""

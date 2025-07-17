@@ -29,9 +29,7 @@ class MatchAnalyzer:
         else:
             raise ValueError(f"Unsupported LLM provider: {self.config.llm.provider}")
 
-    async def analyze_match(
-        self, match_data: str, teams: str = "", focus_areas: str = ""
-    ) -> str:
+    async def analyze_match(self, match_data: str, teams: str = "", focus_areas: str = "") -> str:
         """Analyze a specific match and provide tactical insights."""
 
         prompt = f"""You are TheGaffer, an expert soccer match analyst with decades of experience. Provide comprehensive tactical analysis of this match.
@@ -168,9 +166,7 @@ Be specific, analytical, and provide actionable tactical insights."""
             logger.error(f"Error in period analysis: {e}")
             return f"Sorry, I encountered an error while analyzing the period: {str(e)}"
 
-    async def compare_matches(
-        self, match1_data: str, match2_data: str, comparison_focus: str = ""
-    ) -> str:
+    async def compare_matches(self, match1_data: str, match2_data: str, comparison_focus: str = "") -> str:
         """Compare two matches and identify tactical patterns and differences."""
 
         prompt = f"""You are TheGaffer, an expert soccer analyst. Compare these two matches and identify tactical patterns and insights.
@@ -237,6 +233,4 @@ Be analytical, comparative, and provide actionable insights for tactical develop
                 return response.content[0].text
         except Exception as e:
             logger.error(f"Error in match comparison: {e}")
-            return (
-                f"Sorry, I encountered an error while comparing the matches: {str(e)}"
-            )
+            return f"Sorry, I encountered an error while comparing the matches: {str(e)}"

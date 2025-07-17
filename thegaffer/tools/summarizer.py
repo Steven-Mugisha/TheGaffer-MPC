@@ -29,14 +29,10 @@ class MatchSummarizer:
         else:
             raise ValueError(f"Unsupported LLM provider: {self.config.llm.provider}")
 
-    async def summarize_match(
-        self, match_data: str, focus_areas: Optional[List[str]] = None
-    ) -> str:
+    async def summarize_match(self, match_data: str, focus_areas: Optional[List[str]] = None) -> str:
         """Summarize a match and extract key tactical insights."""
 
-        focus_text = (
-            ", ".join(focus_areas) if focus_areas else "general tactical analysis"
-        )
+        focus_text = ", ".join(focus_areas) if focus_areas else "general tactical analysis"
 
         prompt = f"""You are TheGaffer, an expert soccer analyst. Provide a comprehensive match summary with tactical insights.
 
@@ -96,9 +92,7 @@ Be concise but comprehensive. Focus on actionable tactical insights for coaches 
                 return response.content[0].text
         except Exception as e:
             logger.error(f"Error in match summarization: {e}")
-            return (
-                f"Sorry, I encountered an error while summarizing the match: {str(e)}"
-            )
+            return f"Sorry, I encountered an error while summarizing the match: {str(e)}"
 
     async def extract_tactical_insights(self, match_data: str) -> Dict[str, str]:
         """Extract specific tactical insights from match data."""
@@ -247,9 +241,7 @@ Be analytical and provide actionable insights for tactical development."""
                 return response.content[0].text
         except Exception as e:
             logger.error(f"Error comparing matches: {e}")
-            return (
-                f"Sorry, I encountered an error while comparing the matches: {str(e)}"
-            )
+            return f"Sorry, I encountered an error while comparing the matches: {str(e)}"
 
     async def generate_training_recommendations(self, match_data: str) -> str:
         """Generate training recommendations based on match analysis."""
